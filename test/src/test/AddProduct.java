@@ -6,6 +6,8 @@
 package test;
 
 import java.util.Calendar;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import model.Data;
 import model.ProductModel;
 
@@ -21,6 +23,9 @@ public class AddProduct extends javax.swing.JFrame {
      */
     public AddProduct() {
         initComponents();
+        
+        // call showDataInTable() method in constreuctor
+        showDataIntable();
     }
     
     private final Calendar calendar = Calendar.getInstance();
@@ -83,7 +88,7 @@ public class AddProduct extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Product Number", "Product Name", "Size"
+                "Product Number", "Product Name", "Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -131,29 +136,30 @@ public class AddProduct extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(28, 28, 28)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextPrice)
+                    .addComponent(jBtnsave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
+                        .addComponent(jTextSize, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 200, Short.MAX_VALUE))
+                    .addComponent(jTextProductNumber)
+                    .addComponent(jTextProductName)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextQty, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel7))
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextPrice)
-                            .addComponent(jBtnsave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextSize, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jTextProductNumber)
-                            .addComponent(jTextProductName))))
+                        .addComponent(jTextQty, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -163,7 +169,6 @@ public class AddProduct extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -179,12 +184,14 @@ public class AddProduct extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jTextQty, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jBtnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 149, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,26 +213,58 @@ public class AddProduct extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextQtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextQtyActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextQtyActionPerformed
 
+    
+    /**
+     * This method take click event when i clicked SAVE button and take action
+     * save data in database
+     * @param evt 
+     */
     private void jBtnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnsaveActionPerformed
-        // TODO add your handling code here:
+      
+        Data data=new Data(); // create data class object
         
-        Data data=new Data();
         
-        data.tableName="PRODUCT_LIST";
+        data.product_number=Integer.parseInt(jTextProductNumber.getText()); // set product numebr
+        data.product_name=jTextProductName.getText(); // set product name
+        data.price=Float.parseFloat(jTextPrice.getText()); // set price
+        data.qty=Integer.parseInt(jTextQty.getText()); // set qty
+        data.submitDate=processDate; // set current date
         
-        data.product_number=Integer.parseInt(jTextProductNumber.getText());
-        data.product_name=jTextProductName.getText();
-        data.price=Float.parseFloat(jTextPrice.getText());
-        data.qty=Integer.parseInt(jTextQty.getText());
-        data.submitDate=processDate;
+        new ProductModel().addData(data); // save data in database
         
-        new ProductModel().addData(data);
+        showDataIntable(); // call method which show data in table.
         
     }//GEN-LAST:event_jBtnsaveActionPerformed
 
+    /**
+     * this method get data from database and set in data in table
+     */
+    private void showDataIntable(){
+        // make list variable and get data from database using getAllProductList() method.
+        List<Data> informationList= new ProductModel().getAllProductList();
+        // get table model from swing table.
+        DefaultTableModel model= (DefaultTableModel) jTableShowData.getModel();
+        // set table roe count=0.
+        model.setRowCount(0);
+        // make object for add col in table.
+        Object[] row=new Object[3];
+        // loop for manage list index
+        for(int i=0; i<informationList.size(); i++){
+            row[0]=informationList.get(i).product_number; // set data in 1st col
+            row[1]=informationList.get(i).product_name; // set data in 2nd col
+            row[2]=informationList.get(i).price; // set data in 3rd col
+            
+            model.addRow(row); // add row in table
+        }
+        
+    }
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
