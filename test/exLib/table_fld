@@ -1,4 +1,81 @@
 Bata show store
 <-------------------->
 
+Database: BATA_SHOE_STORE
 
+Table: PRODUCT_LIST
+
+Col:
+
+1. PRODUCT_NUMBER
+2. PRODUCT_NAME
+3. PRICE
+4. QTY
+5. ENTRY_DATE
+
+
+Table: PRODUCT_CART
+
+COL:
+
+1. id
+2. client number
+3. product number
+4. size
+5. qty
+6. price
+7. due
+8. disc
+9. sub-ttl
+10. terminal numnber
+11. submit by
+12. submit date
+13. buchar number
+
+
+<----------------- ! ----------------------------------->
+
+
+SQL table and co -------->>
+
+
+CREATE DATABASE IF NOT EXISTS BATA_SHOE_STORE; ----------> Database name.
+
+USE BATA_SHOE_STORE;
+
+
+
+--------->> Table where store product data.
+
+DROP TABLE PRODUCT_LIST;
+
+CREATE TABLE IF NOT EXISTS PRODUCT_LIST( 
+    PRODUCT_NUMBER INT(50) NOT NULL,
+    PRODUCT_NAME VARCHAR(50),
+    PRICE FLOAT,
+    QTY INT(11),
+    ENTRY_DATE DATE NOT NULL,
+    PRIMARY KEY(PRODUCT_NUMBER)
+)ENGINE=InnoDB;
+
+
+--------->> Table where add shoping data
+
+DROP TABLE PRODUCT_CART;
+
+CREATE TABLE IF NOT EXISTS PRODUCT_CART(
+    ID INT NOT NULL AUTO_INCREMENT,
+    CLIENT_NUMBER INT(50),
+    PRODUCT_NUMBER INT(50) NOT NULL,
+    SIZE INT(11),
+    QTY INT(11),
+    PRICE FLOAT,
+    DUE FLOAT,
+    DISC VARCHAR(50),
+    SUB_TTL VARCHAR(50),
+    TERMINAL_NUMBER INT(11),
+    SUBMIT_BY VARCHAR(50) NOT NULL,
+    SUBMIT_DATE DATE NOT NULL,
+    PRIMARY KEY(ID),
+    FOREIGN KEY(PRODUCT_NUMBER) REFERENCES BATA_SHOE_STORE.PRODUCT_LIST(PRODUCT_NUMBER) ON DELETE CASCADE
+)ENGINE=InnoDB;
