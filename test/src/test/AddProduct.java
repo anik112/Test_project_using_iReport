@@ -5,11 +5,27 @@
  */
 package test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import model.Data;
 import model.ProductModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 /**
@@ -57,6 +73,7 @@ public class AddProduct extends javax.swing.JFrame {
         jBtnsave = new javax.swing.JButton();
         jTextPrice = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jBtnReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -130,6 +147,13 @@ public class AddProduct extends javax.swing.JFrame {
         jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Price:");
 
+        jBtnReport.setText("REPORT");
+        jBtnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnReportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -159,7 +183,8 @@ public class AddProduct extends javax.swing.JFrame {
                         .addGap(73, 73, 73)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextQty, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextQty, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jBtnReport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -189,7 +214,9 @@ public class AddProduct extends javax.swing.JFrame {
                             .addComponent(jTextPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 149, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 103, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -238,6 +265,42 @@ public class AddProduct extends javax.swing.JFrame {
         showDataIntable(); // call method which show data in table.
         
     }//GEN-LAST:event_jBtnsaveActionPerformed
+
+    private void jBtnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnReportActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+            
+            Connection con=connection.Connection.getConnection();
+            
+            /*
+            Connection con=connection.Connection.getConnection();
+            
+            InputStream is=new FileInputStream(new File("report\\show_product_list.jrxml"));
+            JasperDesign design=JRXmlLoader.load(is);
+            
+            JasperReport jr=JasperCompileManager.compileReport(is);
+            HashMap para=new HashMap();
+            JasperPrint print=JasperFillManager.fillReport(jr,para,con);
+            
+            JasperViewer.viewReport(print,false);
+            */
+            
+            
+            JasperReport jasperReport = JasperCompileManager.compileReport("report//show_product_list.jrxml");
+            
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,null, con);
+
+            JasperViewer.viewReport(jasperPrint);
+            con.close();
+
+            
+        } catch (Exception e) {
+            Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        
+    }//GEN-LAST:event_jBtnReportActionPerformed
 
     /**
      * this method get data from database and set in data in table
@@ -301,6 +364,7 @@ public class AddProduct extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnReport;
     private javax.swing.JButton jBtnsave;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

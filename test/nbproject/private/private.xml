@@ -5,6 +5,7 @@
         <group>
             <file>file:/home/anik/NetBeansProjects/Test_project_using_iReport/test/src/model/Data.java</file>
             <file>file:/home/anik/NetBeansProjects/Test_project_using_iReport/test/src/model/ProductModel.java</file>
+            <file>file:/home/anik/NetBeansProjects/Test_project_using_iReport/test/src/report/show_product_list.jrxml</file>
             <file>file:/home/anik/NetBeansProjects/Test_project_using_iReport/test/src/test/AddProduct.java</file>
             <file>file:/home/anik/NetBeansProjects/Test_project_using_iReport/test/src/test/AddToCart.java</file>
         </group>
