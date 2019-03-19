@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cart" pageWidth="216" pageHeight="360" columnWidth="202" leftMargin="7" rightMargin="7" topMargin="7" bottomMargin="7" uuid="c4d5999a-d44d-478b-8906-7dacc19eeeb1">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="5"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+	`PRODUCT_NUMBER`,
+	`SIZE`,
+	`QTY`,
+	`PRICE`,
+	`DISC`,
+	`TERMINAL_NUMBER`,
+	`SUBMIT_DATE`,
+	`SUBMIT_BY`
+ FROM
+ 	PRODUCT_CART]]>
+	</queryString>
+	<field name="PRODUCT_NUMBER" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SIZE" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="QTY" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRICE" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DISC" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TERMINAL_NUMBER" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SUBMIT_DATE" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SUBMIT_BY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="201" height="20" forecolor="#000000" uuid="83eab571-3517-48f1-a917-01c57f7c1e1a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BATA SHOE STORE, MIRPUR SECTION-02]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="202" height="11" forecolor="#000000" uuid="15136bc8-a82f-4836-88e2-dd4aac7bdc5b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<text><![CDATA[ For assistance/inquires, pls call:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="19" width="201" height="22" forecolor="#000000" uuid="b560d2e1-f0e5-4cbf-be1b-1bed9e24f6b6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SHAH ALI SUPER MARKET, MIRPUR, DHAKA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="50" width="201" height="11" uuid="78a49c92-ef47-43dc-8913-49908b772081"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<text><![CDATA[01826995639]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="60" width="201" height="11" uuid="acf99e94-6ca2-42f8-a839-737844bd4c33"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<text><![CDATA[www.batabd.com]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="1" width="43" height="12" forecolor="#FF0000" uuid="2f227c4e-0471-4a4a-b14f-4e911a518cee"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<text><![CDATA[Invoice No:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="44" y="1" width="132" height="12" uuid="bf72874e-731f-4bd5-b7ad-60d8e4ff1670"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<text><![CDATA[0125564854454252]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="12" width="26" height="11" forecolor="#FF0000" uuid="828dafd0-2a09-4625-89a2-ecb3d1ddd452"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="28" y="12" width="56" height="11" uuid="41d4e34c-6e2b-4d14-9c62-a9579d3818b7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="84" y="12" width="26" height="11" forecolor="#FF0000" uuid="ce2dbc09-f947-441d-a990-bcd3e140ff54"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<text><![CDATA[Time:]]></text>
+			</staticText>
+			<textField pattern="HH.mm.ss">
+				<reportElement x="110" y="12" width="62" height="11" uuid="49b1c404-e212-45fd-b40f-ccceab897c04"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Consolas" size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="27" height="11" forecolor="#660000" uuid="9f4fa867-b7a2-4126-bb24-97c2a920d69b"/>
+				<textElement>
+					<font fontName="Consolas" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Articale]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="63" y="0" width="15" height="11" forecolor="#660000" uuid="90494c1e-6d67-4e61-951c-76a31cb235b8"/>
+				<textElement>
+					<font fontName="Consolas" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sz]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="0" width="16" height="11" forecolor="#660000" uuid="d0690bff-f16b-409a-9b8c-73ff4956f4a0"/>
+				<textElement>
+					<font fontName="Consolas" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="99" y="0" width="28" height="11" forecolor="#660000" uuid="592410a4-7215-49ca-9a2b-7446a8846740"/>
+				<textElement>
+					<font fontName="Consolas" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="0" width="24" height="11" forecolor="#660000" uuid="d2c4c7c5-9c57-4221-88a0-3256380513e9"/>
+				<textElement>
+					<font fontName="Consolas" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Disc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="0" width="34" height="11" forecolor="#660000" uuid="1a160d30-1851-4c14-8a02-1d63b4ea0f0b"/>
+				<textElement>
+					<font fontName="Consolas" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="54" height="12" uuid="9acae854-422e-4aaf-b3b0-4b22503de607"/>
+				<textElement>
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRODUCT_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="0" width="15" height="12" uuid="dfc121ca-56fe-4482-b95d-a055eb168077"/>
+				<textElement>
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SIZE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="16" height="12" uuid="1ce61e23-e2b2-485f-bbd3-31abd3f6fefc"/>
+				<textElement>
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{QTY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="99" y="0" width="28" height="12" uuid="fbc26b9b-3218-43da-a07a-2c6ff8741621"/>
+				<textElement>
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRICE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="24" height="12" uuid="d629f544-f43b-4c1e-ba38-8c32cb449947"/>
+				<textElement>
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DISC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="168" y="0" width="34" height="12" forecolor="#FF0000" uuid="7ca3d08e-c179-4e14-ba05-6a406a56a627"/>
+				<textElement>
+					<font fontName="Consolas" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRICE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

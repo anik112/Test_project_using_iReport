@@ -5,17 +5,31 @@
  */
 package test;
 
+import java.util.Calendar;
+import java.util.List;
+import model.Data;
+import java.util.Set;
+import javax.swing.table.DefaultTableModel;
+import model.CartModel;
+import model.MasterData;
+
 /**
  *
  * @author anik
  */
 public class AddToCart extends javax.swing.JFrame {
 
+    private final Calendar calendar = Calendar.getInstance();
+    private final java.sql.Date processDate = new java.sql.Date(calendar.getTime().getTime());
+    
+    
     /**
      * Creates new form MainFrom
      */
     public AddToCart() {
         initComponents();
+        displayAuthorListInBookInfo();
+        showDataIntable();
     }
 
     /**
@@ -35,21 +49,23 @@ public class AddToCart extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jComboBoxProductNumber = new javax.swing.JComboBox<>();
-        jTextSize = new javax.swing.JTextField();
-        jTextSubTitle = new javax.swing.JTextField();
+        jTextClientNumber = new javax.swing.JTextField();
+        jTextSubmitDate = new javax.swing.JTextField();
         jTextQty = new javax.swing.JTextField();
-        jTextPrice = new javax.swing.JTextField();
         jBtnsave = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableShowData = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabelHeaderTitle = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextDisc = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jListShowClientCartList = new javax.swing.JList<>();
         jBtnAdd = new javax.swing.JButton();
+        jComboBoxSize = new javax.swing.JComboBox<>();
+        jLabelShowPrice = new javax.swing.JLabel();
+        jLabelShowTotal = new javax.swing.JLabel();
 
         jLabel7.setText("jLabel7");
 
@@ -58,7 +74,7 @@ public class AddToCart extends javax.swing.JFrame {
         setAlwaysOnTop(true);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(246, 90, 1));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 0));
         jPanel1.setForeground(java.awt.Color.white);
 
         jLabel1.setForeground(java.awt.Color.white);
@@ -76,6 +92,19 @@ public class AddToCart extends javax.swing.JFrame {
         jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("Client Number:");
 
+        jComboBoxProductNumber.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxProductNumberItemStateChanged(evt);
+            }
+        });
+        jComboBoxProductNumber.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxProductNumberMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jComboBoxProductNumberMousePressed(evt);
+            }
+        });
         jComboBoxProductNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxProductNumberActionPerformed(evt);
@@ -83,6 +112,11 @@ public class AddToCart extends javax.swing.JFrame {
         });
 
         jBtnsave.setText("SAVE");
+        jBtnsave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnsaveActionPerformed(evt);
+            }
+        });
 
         jTableShowData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -117,9 +151,9 @@ public class AddToCart extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        jTextDisc.setColumns(20);
+        jTextDisc.setRows(5);
+        jScrollPane2.setViewportView(jTextDisc);
 
         jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Submit Amount:");
@@ -127,6 +161,26 @@ public class AddToCart extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jListShowClientCartList);
 
         jBtnAdd.setText("ADD");
+        jBtnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAddActionPerformed(evt);
+            }
+        });
+
+        jComboBoxSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5", "6", "7", "8", "9", "10", "11", "12" }));
+        jComboBoxSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSizeActionPerformed(evt);
+            }
+        });
+
+        jLabelShowPrice.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelShowPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelShowPrice.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        jLabelShowTotal.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelShowTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelShowTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -146,27 +200,26 @@ public class AddToCart extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextClientNumber, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnsave, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextQty, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextSize))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jTextPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)))
-                    .addComponent(jTextSubTitle)
+                            .addComponent(jScrollPane2)
+                            .addComponent(jTextSubmitDate)
+                            .addComponent(jBtnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxSize, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelShowPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                .addComponent(jTextQty, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
+                            .addComponent(jBtnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelShowTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jComboBoxProductNumber, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -182,34 +235,38 @@ public class AddToCart extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextSubTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextClientNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextSize, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(13, 13, 13)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                                    .addComponent(jLabelShowPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBoxSize)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextQty, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextSubmitDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4)))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextQty, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelShowTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBtnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(193, 193, 193))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jBtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -220,7 +277,7 @@ public class AddToCart extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -230,6 +287,102 @@ public class AddToCart extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxProductNumberActionPerformed
 
+    private void jBtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAddActionPerformed
+        // TODO add your handling code here:
+        
+        Data data=new Data(); // create data class object
+        MasterData msData=new MasterData();
+        
+        
+        data.product_number_cart=Integer.parseInt(jComboBoxProductNumber.getSelectedItem().toString()); // set product name
+        data.client_number_cart=Integer.parseInt(jTextClientNumber.getText()); // set product numebr
+        data.size_cart=Integer.parseInt(jComboBoxSize.getSelectedItem().toString()); // set price
+        data.qty_cart=Integer.parseInt(jTextQty.getText()); // set qty
+        data.price_cart=Float.parseFloat(jTextSubmitDate.getText());
+        data.due_cart=msData.getFinalPrice(data.product_number_cart)-(Float.parseFloat(jTextSubmitDate.getText()));
+        data.disc_cart=jTextDisc.getText();
+        data.sub_title_cart="New Shoe";
+        data.terminal_number_cart=1;
+        data.submit_by_cart="Anik";
+        data.submit_date_Cart=processDate; // set current date
+        
+        new CartModel().addData(data); // save data in database
+        
+        showDataIntable(); // call method which show data in table.
+        
+        
+        
+    }//GEN-LAST:event_jBtnAddActionPerformed
+// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+    private void jBtnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnsaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnsaveActionPerformed
+
+    private void jComboBoxSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSizeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxSizeActionPerformed
+
+    private void jComboBoxProductNumberMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxProductNumberMouseClicked
+
+    }//GEN-LAST:event_jComboBoxProductNumberMouseClicked
+
+    private void jComboBoxProductNumberMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxProductNumberMousePressed
+  
+    }//GEN-LAST:event_jComboBoxProductNumberMousePressed
+// </editor-fold> 
+    
+    private void jComboBoxProductNumberItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxProductNumberItemStateChanged
+        // TODO add your handling code here:
+        
+        jLabelShowPrice.setText(
+                Float.toString(
+                        new MasterData().getFinalPrice(
+                                Integer.parseInt(jComboBoxProductNumber.getSelectedItem().toString())
+                        )
+                )
+        );
+        
+    }//GEN-LAST:event_jComboBoxProductNumberItemStateChanged
+
+     /**
+     * this method get data from database and set in data in table
+     */
+    private void showDataIntable(){
+        // make list variable and get data from database using getAllProductList() method.
+        List<Data> informationList= new CartModel().getAllProductList();
+        // get table model from swing table.
+        DefaultTableModel model= (DefaultTableModel) jTableShowData.getModel();
+        // set table roe count=0.
+        model.setRowCount(0);
+        // make object for add col in table.
+        Object[] row=new Object[6];
+        // loop for manage list index
+        for(int i=0; i<informationList.size(); i++){
+            row[0]=informationList.get(i).product_number_cart; // set data in 1st col
+            row[1]=informationList.get(i).size_cart; // set data in 2nd col
+            row[2]=informationList.get(i).sub_title_cart; // set data in 3rd col
+            row[3]=informationList.get(i).qty_cart;
+            row[4]=informationList.get(i).price_cart;
+            row[5]=informationList.get(i).disc_cart;
+            
+            model.addRow(row); // add row in table
+        }
+        
+    }
+    
+    
+    public void displayAuthorListInBookInfo() {
+        MasterData msData = new MasterData();
+
+        Set<Integer> productList = msData.productList;
+
+        productList.forEach((a) -> {
+            jComboBoxProductNumber.addItem(a.toString());
+        });
+
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -241,7 +394,7 @@ public class AddToCart extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -272,6 +425,7 @@ public class AddToCart extends javax.swing.JFrame {
     private javax.swing.JButton jBtnAdd;
     private javax.swing.JButton jBtnsave;
     private javax.swing.JComboBox<String> jComboBoxProductNumber;
+    private javax.swing.JComboBox<String> jComboBoxSize;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -280,6 +434,8 @@ public class AddToCart extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelHeaderTitle;
+    private javax.swing.JLabel jLabelShowPrice;
+    private javax.swing.JLabel jLabelShowTotal;
     private javax.swing.JList<String> jListShowClientCartList;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -287,10 +443,9 @@ public class AddToCart extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableShowData;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextPrice;
+    private javax.swing.JTextField jTextClientNumber;
+    private javax.swing.JTextArea jTextDisc;
     private javax.swing.JTextField jTextQty;
-    private javax.swing.JTextField jTextSize;
-    private javax.swing.JTextField jTextSubTitle;
+    private javax.swing.JTextField jTextSubmitDate;
     // End of variables declaration//GEN-END:variables
 }

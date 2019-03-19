@@ -21,6 +21,20 @@ public class Data {
         public Date submitDate;
         public String tableName;
         
+        
+        public int client_number_cart;
+        public int product_number_cart;
+        public int size_cart;
+        public int qty_cart;
+        public float price_cart;
+        public float due_cart;
+        public String disc_cart;
+        public String sub_title_cart;
+        public int terminal_number_cart;
+        public String submit_by_cart;
+        public Date submit_date_Cart;
+        
+        
 
         public Data() {
         }
