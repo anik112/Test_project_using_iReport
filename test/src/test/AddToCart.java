@@ -29,7 +29,6 @@ public class AddToCart extends javax.swing.JFrame {
     public AddToCart() {
         initComponents();
         displayAuthorListInBookInfo();
-        showDataIntable();
     }
 
     /**
@@ -308,14 +307,40 @@ public class AddToCart extends javax.swing.JFrame {
         
         new CartModel().addData(data); // save data in database
         
-        showDataIntable(); // call method which show data in table.
-        
-        
+        showDataIntable(data.client_number_cart); // call method which show data in table.
         
     }//GEN-LAST:event_jBtnAddActionPerformed
 // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     private void jBtnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnsaveActionPerformed
         // TODO add your handling code here:
+        Data data=new Data(); // create data class object
+        MasterData msData=new MasterData();
+
+        float totalPrice=0;
+        int qtt=0;
+        DefaultTableModel model= (DefaultTableModel) jTableShowData.getModel();
+        
+        for(int i=0; i<model.getRowCount(); i++){
+            totalPrice += Float.parseFloat(model.getValueAt(i, 4).toString());
+            qtt += Integer.parseInt(model.getValueAt(i, 3).toString());
+        }
+        
+        data.client_number_cart=Integer.parseInt(jTextClientNumber.getText()); // set product numebr
+        data.size_cart=Integer.parseInt(jComboBoxSize.getSelectedItem().toString()); // set price
+        data.qty_cart=qtt;
+        data.price_cart=totalPrice;
+        data.due_cart=totalPrice-(Float.parseFloat(jTextSubmitDate.getText()));
+        data.disc_cart=jTextDisc.getText();
+        data.sub_title_cart="New Shoe";
+        data.terminal_number_cart=1;
+        data.submit_by_cart="Anik";
+        data.submit_date_Cart=processDate; // set current date
+        
+        new CartModel().addFinalData(data); // save data in database
+        
+        showDataIntable(data.client_number_cart); // call method which show data in table.
+        
+        
     }//GEN-LAST:event_jBtnsaveActionPerformed
 
     private void jComboBoxSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSizeActionPerformed
@@ -347,9 +372,9 @@ public class AddToCart extends javax.swing.JFrame {
      /**
      * this method get data from database and set in data in table
      */
-    private void showDataIntable(){
+    private void showDataIntable(int clientId){
         // make list variable and get data from database using getAllProductList() method.
-        List<Data> informationList= new CartModel().getAllProductList();
+        List<Data> informationList= new CartModel().getAllCartList(clientId);
         // get table model from swing table.
         DefaultTableModel model= (DefaultTableModel) jTableShowData.getModel();
         // set table roe count=0.
