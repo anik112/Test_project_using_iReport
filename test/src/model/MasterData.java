@@ -32,7 +32,7 @@ public class MasterData {
         
         
         try {
-            PreparedStatement stmt = conn.prepareStatement("select PRODUCT_NUMBER from product_list");
+            PreparedStatement stmt = conn.prepareStatement("select PRODUCT_NUMBER from PRODUCT_LIST");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 productList.add(rs.getInt(1));
@@ -45,7 +45,7 @@ public class MasterData {
     
     public float getFinalPrice(int prId){
         
-        String getPrice="SELECT PRICE FROM product_list WHERE PRODUCT_NUMBER="+prId;
+        String getPrice="SELECT PRICE FROM PRODUCT_LIST WHERE PRODUCT_NUMBER="+prId;
         try {
             PreparedStatement statement=conn.prepareStatement(getPrice);
             ResultSet set=statement.executeQuery();

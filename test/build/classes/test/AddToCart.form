@@ -83,16 +83,16 @@
                               <Component id="jComboBoxSize" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabelShowPrice" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="8" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jTextQty" pref="168" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jTextQty" min="-2" pref="168" max="-2" attributes="0"/>
                               <Component id="jBtnsave" min="-2" pref="168" max="-2" attributes="0"/>
                               <Component id="jLabelShowTotal" max="32767" attributes="0"/>
+                              <Component id="jLabelSubTotal" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jLabelDueAmount" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jLabelShowDue" alignment="1" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jComboBoxProductNumber" max="32767" attributes="0"/>
@@ -122,7 +122,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel3" pref="28" max="32767" attributes="0"/>
                                       <Component id="jLabelShowPrice" max="32767" attributes="0"/>
@@ -132,7 +132,16 @@
                                       <Component id="jComboBoxSize" max="32767" attributes="0"/>
                                       <Component id="jLabel2" max="32767" attributes="0"/>
                                   </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jTextQty" min="-2" pref="28" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabelSubTotal" min="-2" pref="28" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jTextSubmitDate" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                       <Component id="jLabel8" alignment="3" max="32767" attributes="0"/>
@@ -144,11 +153,12 @@
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="jTextQty" min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Component id="jLabelDueAmount" min="-2" pref="44" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" min="-2" pref="117" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jLabelShowTotal" pref="28" max="32767" attributes="0"/>
+                                  <Component id="jLabelShowTotal" min="-2" pref="39" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabelShowDue" min="-2" pref="33" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -224,8 +234,14 @@
         <Component class="javax.swing.JTextField" name="jTextClientNumber">
         </Component>
         <Component class="javax.swing.JTextField" name="jTextSubmitDate">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextSubmitDateFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextQty">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextQtyFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBtnsave">
           <Properties>
@@ -245,17 +261,23 @@
             <Component class="javax.swing.JTable" name="jTableShowData">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="0">
+                  <Table columnCount="7" rowCount="0">
                     <Column editable="true" title="Product Number" type="java.lang.Object"/>
                     <Column editable="true" title="Size" type="java.lang.Object"/>
                     <Column editable="true" title="Sub-ttl" type="java.lang.Object"/>
                     <Column editable="true" title="Qty" type="java.lang.Object"/>
                     <Column editable="true" title="Price" type="java.lang.Object"/>
                     <Column editable="true" title="Disc" type="java.lang.Object"/>
+                    <Column editable="true" title="Due" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -355,25 +377,6 @@
             <Property name="text" type="java.lang.String" value="Submit Amount:"/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane3">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JList" name="jListShowClientCartList">
-              <Properties>
-                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                  <StringArray count="0"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-              </AuxValues>
-            </Component>
-          </SubComponents>
-        </Container>
         <Component class="javax.swing.JButton" name="jBtnAdd">
           <Properties>
             <Property name="text" type="java.lang.String" value="ADD"/>
@@ -420,6 +423,51 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelShowTotal">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder thickness="2">
+                  <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelSubTotal">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder thickness="2">
+                  <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelDueAmount">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder thickness="2">
+                  <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelShowDue">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>

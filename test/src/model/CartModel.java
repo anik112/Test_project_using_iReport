@@ -29,7 +29,7 @@ public class CartModel {
             + "(?,?,?,?,?,?,?,?,?,?,?);";
     
     // make SQL select query
-    private String selectFinalData="SELECT * FROM product_cart";
+    private String selectFinalData="SELECT * FROM PRODUCT_CART";
     
     
     
@@ -74,7 +74,7 @@ public class CartModel {
     public void addFinalData(Data data){
         
           // make SQL insert query
-           String insertDatacart="INSERT INTO product_cart "
+           String insertDatacart="INSERT INTO PRODUCT_CART "
             + "(CLIENT_NUMBER,PRODUCT_NUMBER,SIZE,QTY,PRICE,DUE,DISC,SUB_TTL,TERMINAL_NUMBER,SUBMIT_BY,SUBMIT_DATE) "
             + "VALUES "
             + "(?,?,?,?,?,?,?,?,?,?,?);";

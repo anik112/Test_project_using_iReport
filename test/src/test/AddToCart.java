@@ -59,12 +59,13 @@ public class AddToCart extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextDisc = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jListShowClientCartList = new javax.swing.JList<>();
         jBtnAdd = new javax.swing.JButton();
         jComboBoxSize = new javax.swing.JComboBox<>();
         jLabelShowPrice = new javax.swing.JLabel();
         jLabelShowTotal = new javax.swing.JLabel();
+        jLabelSubTotal = new javax.swing.JLabel();
+        jLabelDueAmount = new javax.swing.JLabel();
+        jLabelShowDue = new javax.swing.JLabel();
 
         jLabel7.setText("jLabel7");
 
@@ -110,6 +111,18 @@ public class AddToCart extends javax.swing.JFrame {
             }
         });
 
+        jTextSubmitDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextSubmitDateFocusLost(evt);
+            }
+        });
+
+        jTextQty.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextQtyFocusLost(evt);
+            }
+        });
+
         jBtnsave.setText("SAVE");
         jBtnsave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,7 +135,7 @@ public class AddToCart extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Product Number", "Size", "Sub-ttl", "Qty", "Price", "Disc"
+                "Product Number", "Size", "Sub-ttl", "Qty", "Price", "Disc", "Due"
             }
         ));
         jTableShowData.getTableHeader().setReorderingAllowed(false);
@@ -157,8 +170,6 @@ public class AddToCart extends javax.swing.JFrame {
         jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Submit Amount:");
 
-        jScrollPane3.setViewportView(jListShowClientCartList);
-
         jBtnAdd.setText("ADD");
         jBtnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,6 +191,18 @@ public class AddToCart extends javax.swing.JFrame {
         jLabelShowTotal.setForeground(new java.awt.Color(255, 255, 255));
         jLabelShowTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelShowTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        jLabelSubTotal.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelSubTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSubTotal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        jLabelDueAmount.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelDueAmount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelDueAmount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        jLabelShowDue.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelShowDue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelShowDue.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -207,15 +230,16 @@ public class AddToCart extends javax.swing.JFrame {
                             .addComponent(jBtnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBoxSize, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelShowPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addComponent(jTextQty, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
+                            .addComponent(jTextQty, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelShowTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabelShowTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelSubTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelDueAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelShowDue, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jComboBoxProductNumber, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,8 +269,14 @@ public class AddToCart extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jComboBoxSize)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextQty, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jTextSubmitDate, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -255,11 +285,12 @@ public class AddToCart extends javax.swing.JFrame {
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextQty, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelDueAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelShowTotal, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
+                                .addComponent(jLabelShowTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabelShowDue, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBtnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -298,7 +329,7 @@ public class AddToCart extends javax.swing.JFrame {
         data.size_cart=Integer.parseInt(jComboBoxSize.getSelectedItem().toString()); // set price
         data.qty_cart=Integer.parseInt(jTextQty.getText()); // set qty
         data.price_cart=Float.parseFloat(jTextSubmitDate.getText());
-        data.due_cart=msData.getFinalPrice(data.product_number_cart)-(Float.parseFloat(jTextSubmitDate.getText()));
+        data.due_cart=((msData.getFinalPrice(data.product_number_cart) * data.qty_cart)-(Float.parseFloat(jTextSubmitDate.getText())));
         data.disc_cart=jTextDisc.getText();
         data.sub_title_cart="New Shoe";
         data.terminal_number_cart=1;
@@ -309,27 +340,45 @@ public class AddToCart extends javax.swing.JFrame {
         
         showDataIntable(data.client_number_cart); // call method which show data in table.
         
+        
+        float totalPrice=0;
+        float totalDue=0;
+        
+        DefaultTableModel model= (DefaultTableModel) jTableShowData.getModel();
+        
+        for(int i=0; i<model.getRowCount(); i++){
+            totalPrice += Float.parseFloat(model.getValueAt(i, 4).toString());
+            totalDue += Float.parseFloat(model.getValueAt(i, 6).toString());
+        }
+        
+        jLabelShowTotal.setText(Float.toString(totalPrice));
+        jLabelShowDue.setText(Float.toString(totalDue));
+        
+        
     }//GEN-LAST:event_jBtnAddActionPerformed
-// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
+
     private void jBtnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnsaveActionPerformed
         // TODO add your handling code here:
         Data data=new Data(); // create data class object
         MasterData msData=new MasterData();
 
         float totalPrice=0;
+        float totalDue=0;
         int qtt=0;
         DefaultTableModel model= (DefaultTableModel) jTableShowData.getModel();
         
         for(int i=0; i<model.getRowCount(); i++){
             totalPrice += Float.parseFloat(model.getValueAt(i, 4).toString());
             qtt += Integer.parseInt(model.getValueAt(i, 3).toString());
+            totalDue += Float.parseFloat(model.getValueAt(i, 6).toString());
         }
         
+        data.product_number_cart=Integer.parseInt(jComboBoxProductNumber.getSelectedItem().toString());
         data.client_number_cart=Integer.parseInt(jTextClientNumber.getText()); // set product numebr
         data.size_cart=Integer.parseInt(jComboBoxSize.getSelectedItem().toString()); // set price
         data.qty_cart=qtt;
         data.price_cart=totalPrice;
-        data.due_cart=totalPrice-(Float.parseFloat(jTextSubmitDate.getText()));
+        data.due_cart=totalDue;
         data.disc_cart=jTextDisc.getText();
         data.sub_title_cart="New Shoe";
         data.terminal_number_cart=1;
@@ -339,10 +388,10 @@ public class AddToCart extends javax.swing.JFrame {
         new CartModel().addFinalData(data); // save data in database
         
         showDataIntable(data.client_number_cart); // call method which show data in table.
-        
+        clearAllField();
         
     }//GEN-LAST:event_jBtnsaveActionPerformed
-
+// <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     private void jComboBoxSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSizeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxSizeActionPerformed
@@ -369,6 +418,26 @@ public class AddToCart extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jComboBoxProductNumberItemStateChanged
 
+    private void jTextQtyFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextQtyFocusLost
+        // TODO add your handling code here:
+        
+        float subPrice=Float.parseFloat(jLabelShowPrice.getText());
+        jLabelSubTotal.setText(Float.toString(subPrice * Integer.parseInt(jTextQty.getText()))); 
+        
+    }//GEN-LAST:event_jTextQtyFocusLost
+
+    private void jTextSubmitDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextSubmitDateFocusLost
+        // TODO add your handling code here:
+        
+        jLabelDueAmount.setText(
+                Float.toString(
+                        Float.parseFloat(jLabelSubTotal.getText()) 
+                                - Float.parseFloat(jTextSubmitDate.getText())
+                )
+        );
+        
+    }//GEN-LAST:event_jTextSubmitDateFocusLost
+
      /**
      * this method get data from database and set in data in table
      */
@@ -380,7 +449,7 @@ public class AddToCart extends javax.swing.JFrame {
         // set table roe count=0.
         model.setRowCount(0);
         // make object for add col in table.
-        Object[] row=new Object[6];
+        Object[] row=new Object[7];
         // loop for manage list index
         for(int i=0; i<informationList.size(); i++){
             row[0]=informationList.get(i).product_number_cart; // set data in 1st col
@@ -389,6 +458,7 @@ public class AddToCart extends javax.swing.JFrame {
             row[3]=informationList.get(i).qty_cart;
             row[4]=informationList.get(i).price_cart;
             row[5]=informationList.get(i).disc_cart;
+            row[6]=informationList.get(i).due_cart;
             
             model.addRow(row); // add row in table
         }
@@ -405,6 +475,22 @@ public class AddToCart extends javax.swing.JFrame {
             jComboBoxProductNumber.addItem(a.toString());
         });
 
+    }
+    
+    
+    public void clearAllField(){
+        
+        DefaultTableModel model= (DefaultTableModel) jTableShowData.getModel();
+        // set table row count=0.
+        model.setRowCount(0);
+        
+        jTextClientNumber.setText(null);
+        jTextDisc.setText(null);
+        jTextQty.setText(null);
+        jTextSubmitDate.setText(null);
+        
+        jLabelShowPrice.setText(null);
+        jLabelShowTotal.setText(null);
     }
     
     
@@ -458,15 +544,16 @@ public class AddToCart extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabelDueAmount;
     private javax.swing.JLabel jLabelHeaderTitle;
+    private javax.swing.JLabel jLabelShowDue;
     private javax.swing.JLabel jLabelShowPrice;
     private javax.swing.JLabel jLabelShowTotal;
-    private javax.swing.JList<String> jListShowClientCartList;
+    private javax.swing.JLabel jLabelSubTotal;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableShowData;
     private javax.swing.JTextField jTextClientNumber;
     private javax.swing.JTextArea jTextDisc;
